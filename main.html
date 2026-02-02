@@ -177,7 +177,7 @@
             
             const index = (n - 1) * 16 + (m - 1) * 4 + k - 1;
             const videoId = videoList[index];
-            const url = videoID == 'X' ? 'X' : `https://www.youtube.com/watch?v=${videoId}`;
+            const url = videoID === 'X' ? '없' : `https://www.youtube.com/watch?v=${videoId}`;
             
             const linkElement = document.getElementById('link');
             linkElement.href = url;
