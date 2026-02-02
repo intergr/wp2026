@@ -126,8 +126,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>🎥 YouTube 링크 생성기</h1>
-        <p class="subtitle">원하는 영상을 찾아보세요</p>
+        <h1>🎥 주중 영상 url</h1>
+        <p class="subtitle">몇개는 없다</p>
         
         <div class="example">
             <div class="example-title">입력 예시</div>
@@ -145,7 +145,7 @@
         </div>
         
         <div class="input-group">
-            <label for="k">k (주중 몇 번째: 1-4)</label>
+            <label for="k">k (몇 교시: 1-4)</label>
             <input type="number" id="k" min="1" max="4" placeholder="1-4 사이의 숫자">
         </div>
         
@@ -177,7 +177,7 @@
             
             const index = (n - 1) * 16 + (m - 1) * 4 + k - 1;
             const videoId = videoList[index];
-            const url = `https://www.youtube.com/watch?v=${videoId}`;
+            const url = videoID == 'X' ? 'X' : `https://www.youtube.com/watch?v=${videoId}`;
             
             const linkElement = document.getElementById('link');
             linkElement.href = url;
