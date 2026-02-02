@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube 링크 생성기</title>
+    <title>주중 몰입 영상 찾기</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -126,7 +126,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>🎥 주중 영상 url</h1>
+        <h1>🎥 주중 몰입 영상 찾기</h1>
         <p class="subtitle">몇개는 없다</p>
         
         <div class="example">
@@ -177,7 +177,7 @@
             
             const index = (n - 1) * 16 + (m - 1) * 4 + k - 1;
             const videoId = videoList[index];
-            const url = videoID === 'X' ? '없' : `https://www.youtube.com/watch?v=${videoId}`;
+            const url = videoId === 'X' ? '없' : `https://www.youtube.com/watch?v=${videoId}`;
             
             const linkElement = document.getElementById('link');
             linkElement.href = url;
