@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube 링크 생성기</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        .result a {
+            color: #667eea;
+            word-break: break-all;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .result a:hover {
+            text-decoration: underline;
+        }
+        
+        .example {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .example-title {
+            font-weight: 600;
+            color: #856404;
+            margin-bottom: 5px;
+        }
+        
+        .example-text {
+            color: #856404;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎥 YouTube 링크 생성기</h1>
+        <p class="subtitle">원하는 영상을 찾아보세요</p>
+        
+        <div class="example">
+            <div class="example-title">입력 예시</div>
+            <div class="example-text">첫번째 목요일 세번째 영상 → n=4, m=1, k=3</div>
+        </div>
+        
+        <div class="input-group">
+            <label for="n">n (요일: 1=월요일, 2=화요일, ..., 5=금요일)</label>
+            <input type="number" id="n" min="1" max="5" placeholder="1-5 사이의 숫자">
+        </div>
+        
+        <div class="input-group">
+            <label for="m">m (몇 번째 주: 1=첫째주, 2=둘째주, ...)</label>
+            <input type="number" id="m" min="1" max="4" placeholder="1-4 사이의 숫자">
+        </div>
+        
+        <div class="input-group">
+            <label for="k">k (주중 몇 번째: 1-4)</label>
+            <input type="number" id="k" min="1" max="4" placeholder="1-4 사이의 숫자">
+        </div>
+        
+        <button onclick="generateLink()">🔗 링크 생성</button>
+        
+        <div class="result" id="result">
+            <strong>생성된 링크:</strong><br>
+            <a href="#" id="link" target="_blank"></a>
+        </div>
+    </div>
+
+    <script>
+        const videoList = ['QBwmAr4neQc', 'WsVz0GP5I7I', 'Fx70fA1FDsM', 'E4sTh31f0og', 'nlmKaY1UIlg', 'GiBb9Cpis88', 'WH9QPD4LupQ', '9vm3tjTVXbg', 'PpGfTJEzqgQ', '_6MhdzFtYTE', 'iuRguFAO17Y', 'SIgB-nFIyEs', 'SyRKFi6Gea0', 'TZdEESRbEM4', 'IiLfRUX4Ws', '1ABAdjGyuPA', 'nERPyXlPGxI', '1Ac9uUkxUAY', 'r55xRPEUS4c', 'WQ7Tnls5wm0', 'nSXIBnmpIA', 'YORGy-S7PIc', 'M-5Vo1OXHZ0', 'E4Sbuh0Q5oM', 'R86bMKbYEY', 'Sxe5Mz4RbTM', 'CdjVGWSqjk', '76pD5yVUlnk', 'X', 'ZYXuA1R1g6g', 'iTC15hif-Fg', 'Xk6nwyZo73s', 'I15Sg-gI3TA', 'C_OswWe3jUM', '-lFMttm3bE8', 'ViRcQD6c2zo', 'UhTksTYdZwQ', 'DaI-3oPml0', 'YlCDPJzHIM8', 'XiF5Csmgww', 'GK_r--0VkQ0', 'SBevwF1khgc', 'QA1fiBDRizQ', '-6nORik_nYQ', '8DIwype8-Uo', 'g_vLlu_dLRo', 'V3V79GCTmKo', 'B16s8Ju-mk', '5pWrnSm3rP0', 'gn7D21Ir3i8', 'viBpjY_eGcw', 'NKwaLZOtw', 'Vlid3uGOuQ4', 'rHdxZ08x4I', 'lYK4xDGr6k', 'M1BeZYX50HA', 'D3uFEEQ2dM', '4JcjCFgfFP0', 'DgKbateEWJ0', 'gu92qkxnmM', '0KKzwqNxc-0', 'UjYx_INP9EI', 'Uukg-5uwtg', 'X7N53f_uB2E', 'VT5-K_07ASo', 'YDrnzhKhhB8', 'J3zsK_j6KE', 'Lwkx-r1gvGI', 'XoL6NYHlZGM', 'VBj7deiaA50', 'Zt8pn5q5dlM', 'HQVFiWN1ue8', 'ZOnk6VbYVg', '_IsTLzeHnU', 'VXIcccooJJA', 'NbhkhWUgI7o', 'VBOzSc-drys', 'UEmSqE5KZUY', 'TOlBNxfmxoc', 'X'];
+
+        function generateLink() {
+            const n = parseInt(document.getElementById('n').value);
+            const m = parseInt(document.getElementById('m').value);
+            const k = parseInt(document.getElementById('k').value);
+            
+            if (!n || !m || !k) {
+                alert('모든 값을 입력해주세요!');
+                return;
+            }
+            
+            if (n < 1 || n > 5 || m < 1 || m > 4 || k < 1 || k > 4) {
+                alert('올바른 범위의 값을 입력해주세요!\nn: 1-5, m: 1-4, k: 1-4');
+                return;
+            }
+            
+            const index = (n - 1) * 16 + (m - 1) * 4 + k - 1;
+            const videoId = videoList[index];
+            const url = `https://www.youtube.com/watch?v=${videoId}`;
+            
+            const linkElement = document.getElementById('link');
+            linkElement.href = url;
+            linkElement.textContent = url;
+            
+            document.getElementById('result').classList.add('show');
+        }
+        
+        // Enter 키로도 실행 가능하게
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                generateLink();
+            }
+        });
+    </script>
+</body>
+</html>
