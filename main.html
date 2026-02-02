@@ -3,133 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>수업 시간표 & 영상 링크</title>
+    <title>2026 WP과사람 몰입기간 영상 찾기</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
         }
         
         .container {
-            max-width: 1400px;
-            margin: 0 auto;
             background: white;
-            border-radius: 15px;
             padding: 30px;
+            border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         
         h1 {
+            color: #333;
             text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 28px;
+            margin-bottom: 10px;
         }
         
-        .schedule-section {
-            margin-bottom: 40px;
-        }
-        
-        .schedule-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
-        }
-        
-        .schedule-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .schedule-table th,
-        .schedule-table td {
-            border: 1px solid #ddd;
-            padding: 12px 8px;
+        .subtitle {
             text-align: center;
-            font-size: 13px;
-        }
-        
-        .schedule-table th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            font-weight: 600;
-        }
-        
-        .schedule-table .day-header {
-            background: #FFD700;
-            color: #333;
-            font-weight: 600;
-        }
-        
-        .schedule-table .time-header {
-            background: #f8f9fa;
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .schedule-table .lunch-break,
-        .schedule-table .dinner-break {
-            background: #e9ecef;
-            font-weight: 600;
-        }
-        
-        .generator-section {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 10px;
-            margin-top: 30px;
-        }
-        
-        .generator-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        
-        .input-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
         }
         
         .input-group {
-            display: flex;
-            flex-direction: column;
+            margin-bottom: 20px;
         }
         
         label {
+            display: block;
             margin-bottom: 8px;
             color: #555;
             font-weight: 600;
-            font-size: 14px;
         }
         
-        select,
-        input {
+        select {
+            width: 100%;
             padding: 12px;
             border: 2px solid #ddd;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 16px;
+            box-sizing: border-box;
             transition: border-color 0.3s;
+            background-color: white;
+            cursor: pointer;
         }
         
-        select:focus,
-        input:focus {
+        select:focus {
             outline: none;
             border-color: #667eea;
         }
@@ -145,7 +73,6 @@
             font-weight: 600;
             cursor: pointer;
             transition: transform 0.2s;
-            margin-top: 10px;
         }
         
         button:hover {
@@ -159,9 +86,8 @@
         .result {
             margin-top: 25px;
             padding: 20px;
-            background: white;
+            background: #f8f9fa;
             border-radius: 8px;
-            border: 2px solid #667eea;
             display: none;
         }
         
@@ -169,169 +95,41 @@
             display: block;
         }
         
-        .result-info {
-            margin-bottom: 15px;
-            padding: 15px;
-            background: #f0f0f0;
-            border-radius: 5px;
-        }
-        
-        .result-info strong {
-            color: #667eea;
-        }
-        
         .result a {
             color: #667eea;
             word-break: break-all;
             text-decoration: none;
             font-weight: 600;
-            font-size: 15px;
         }
         
         .result a:hover {
             text-decoration: underline;
         }
         
-        .note {
+        .example {
             background: #fff3cd;
             padding: 15px;
             border-radius: 8px;
-            margin-top: 20px;
+            margin-bottom: 20px;
             border-left: 4px solid #ffc107;
         }
         
-        .note-title {
+        .example-title {
             font-weight: 600;
             color: #856404;
             margin-bottom: 5px;
         }
         
-        .note-text {
+        .example-text {
             color: #856404;
-            font-size: 13px;
-        }
-        
-        @media (max-width: 768px) {
-            .schedule-table {
-                font-size: 11px;
-            }
-            
-            .schedule-table th,
-            .schedule-table td {
-                padding: 8px 4px;
-            }
-            
-            .container {
-                padding: 15px;
-            }
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📚 수업 시간표 & 영상 링크 생성기</h1>
-        
-        <div class="schedule-section">
-            <div class="schedule-title">📋 A반 기준 시간표 (참고용)</div>
-            <div style="overflow-x: auto;">
-                <table class="schedule-table">
-                    <thead>
-                        <tr>
-                            <th rowspan="2">요일</th>
-                            <th colspan="2">월요일</th>
-                            <th colspan="2">화요일</th>
-                            <th colspan="2">수요일</th>
-                            <th colspan="2">목요일</th>
-                            <th colspan="2">금요일</th>
-                        </tr>
-                        <tr>
-                            <th>시간</th>
-                            <th>물리 A</th>
-                            <th>물리B</th>
-                            <th>물리 A</th>
-                            <th>물리B</th>
-                            <th>물리 A</th>
-                            <th>물리B</th>
-                            <th>물리 A</th>
-                            <th>물리B</th>
-                            <th>물리 A</th>
-                            <th>물리B</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="time-header">1교시 (2.5시간)</td>
-                            <td class="time-header">10:00~12:30</td>
-                            <td>수학(정원용)</td>
-                            <td>물리(이수정)</td>
-                            <td>수학(박진우)</td>
-                            <td>생명(김영갑)</td>
-                            <td>수학(서형주)</td>
-                            <td>수학(강현식)</td>
-                            <td>지학(윤인수)</td>
-                            <td>화학(최철호)</td>
-                            <td>수학(김재규)</td>
-                            <td>수학(박진우)</td>
-                        </tr>
-                        <tr class="lunch-break">
-                            <td class="time-header">점심시간(1시간)</td>
-                            <td class="time-header">12:30~13:30</td>
-                            <td colspan="10">점심시간</td>
-                        </tr>
-                        <tr>
-                            <td class="time-header">2교시 (2.5시간)</td>
-                            <td class="time-header">13:30~16:00</td>
-                            <td>물리(이수정)</td>
-                            <td>수학(정원용)</td>
-                            <td>생명(김영갑)</td>
-                            <td>수학(박진우)</td>
-                            <td>수학(강현식)</td>
-                            <td>수학(서형주)</td>
-                            <td>화학(최철호)</td>
-                            <td>지학(윤인수)</td>
-                            <td>수학(박진우)</td>
-                            <td>수학(김재규)</td>
-                        </tr>
-                        <tr>
-                            <td class="time-header">3교시 (2.5시간)</td>
-                            <td class="time-header">16:00~18:30</td>
-                            <td>수학(박진우)</td>
-                            <td>생명(김영갑)</td>
-                            <td>지학(윤인수)</td>
-                            <td>화학(최철호)</td>
-                            <td>수학(정원용)</td>
-                            <td>수학(박진우)</td>
-                            <td>수학(서형주)</td>
-                            <td>물리(이수정)</td>
-                            <td>수학(김재규)</td>
-                            <td>수학(정원용)</td>
-                        </tr>
-                        <tr class="dinner-break">
-                            <td class="time-header">저녁시간(1시간)</td>
-                            <td class="time-header">18:30~19:30</td>
-                            <td colspan="10">저녁시간</td>
-                        </tr>
-                        <tr>
-                            <td class="time-header">4교시 (2.5시간)</td>
-                            <td class="time-header">19:30~22:00</td>
-                            <td>생명(김영갑)</td>
-                            <td>수학(박진우)</td>
-                            <td>화학(최철호)</td>
-                            <td>지학(윤인수)</td>
-                            <td>수학(박진우)</td>
-                            <td>수학(정원용)</td>
-                            <td>물리(이수정)</td>
-                            <td>수학(서형주)</td>
-                            <td>수학(정원용)</td>
-                            <td>수학(김재규)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <h1>🎥 주중 몰입 영상 찾기</h1>
-        <p class="subtitle">몇개는 없다</p>
+        <h1>2026 WP과사람 몰입기간 영상 찾기</h1>
+        <p class="subtitle">재규T 진우T 영상 한개씩 안찍으셨음</p>
         
         <div class="example">
             <div class="example-title">입력 예시</div>
@@ -339,18 +137,37 @@
         </div>
         
         <div class="input-group">
-            <label for="n">n (요일: 1=월요일, 2=화요일, ..., 5=금요일)</label>
-            <input type="number" id="n" min="1" max="5" placeholder="1-5 사이의 숫자">
+            <label for="n">요일</label>
+            <select id="n">
+                <option value="">선택하세요</option>
+                <option value="1">월요일</option>
+                <option value="2">화요일</option>
+                <option value="3">수요일</option>
+                <option value="4">목요일</option>
+                <option value="5">금요일</option>
+            </select>
         </div>
         
         <div class="input-group">
-            <label for="m">m (몇 번째 주: 1=첫째주, 2=둘째주, ...)</label>
-            <input type="number" id="m" min="1" max="4" placeholder="1-4 사이의 숫자">
+            <label for="m">몇 번째 주</label>
+            <select id="m">
+                <option value="">선택하세요</option>
+                <option value="1">첫째주</option>
+                <option value="2">둘째주</option>
+                <option value="3">셋째주</option>
+                <option value="4">넷째주</option>
+            </select>
         </div>
         
         <div class="input-group">
-            <label for="k">k (몇 교시: 1-4)</label>
-            <input type="number" id="k" min="1" max="4" placeholder="1-4 사이의 숫자">
+            <label for="k">주중 몇 번째 교시</label>
+            <select id="k">
+                <option value="">선택하세요</option>
+                <option value="1">1교시</option>
+                <option value="2">2교시</option>
+                <option value="3">3교시</option>
+                <option value="4">4교시</option>
+            </select>
         </div>
         
         <button onclick="generateLink()">🔗 링크 생성</button>
@@ -362,7 +179,7 @@
     </div>
 
     <script>
-        const videoList = ['QBwmAr4neQc', 'WsVz0GP5I7I', 'Fx70fA1FDsM', 'E4sTh31f0og', 'nlmKaY1UIlg', 'GiBb9Cpis88', 'WH9QPD4LupQ', '9vm3tjTVXbg', 'PpGfTJEzqgQ', '_6MhdzFtYTE', 'iuRguFAO17Y', 'SIgB-nFIyEs', 'SyRKFi6Gea0', 'TZdEESRbEM4', 'vIiLfRUX4Ws', '1ABAdjGyuPA', 'nERPyXlPGxI', '1Ac9uUkxUAY', 'r55xRPEUS4c', 'WQ7Tnls5wm0', 'snSXIBnmpIA', 'YORGy-S7PIc', 'M-5Vo1OXHZ0', 'E4Sbuh0Q5oM', 'oR86bMKbYEY', 'Sxe5Mz4RbTM', 'aCdjVGWSqjk', '76pD5yVUlnk', 'X', 'ZYXuA1R1g6g', 'iTC15hif-Fg', 'Xk6nwyZo73s', 'I15Sg-gI3TA', 'C_OswWe3jUM', '-lFMttm3bE8', 'ViRcQD6c2zo', 'UhTksTYdZwQ', 'sDaI-3oPml0', 'YlCDPJzHIM8', 'hXiF5Csmgww', 'GK_r--0VkQ0', 'SBevwF1khgc', 'QA1fiBDRizQ', '-6nORik_nYQ', '8DIwype8-Uo', 'g_vLlu_dLRo', 'V3V79GCTmKo', 'wB16s8Ju-mk', '5pWrnSm3rP0', 'gn7D21Ir3i8', 'viBpjY_eGcw', 'hwNKwaLZOtw', 'Vlid3uGOuQ4', 'hrHdxZ08x4I', 'elYK4xDGr6k', 'M1BeZYX50HA', 'eD3uFEEQ2dM', '4JcjCFgfFP0', 'DgKbateEWJ0', 'sgu92qkxnmM', '0KKzwqNxc-0', 'UjYx_INP9EI', 'eUukg-5uwtg', 'X7N53f_uB2E', 'VT5-K_07ASo', 'YDrnzhKhhB8', 'sJ3zsK_j6KE', 'Lwkx-r1gvGI', 'XoL6NYHlZGM', 'VBj7deiaA50', 'Zt8pn5q5dlM', 'HQVFiWN1ue8', 'hZOnk6VbYVg', 'b_IsTLzeHnU', 'VXIcccooJJA', 'NbhkhWUgI7o', 'VBOzSc-drys', 'UEmSqE5KZUY', 'TOlBNxfmxoc', 'X'];
+        const videoList = ['QBwmAr4neQc', 'WsVz0GP5I7I', 'Fx70fA1FDsM', 'E4sTh31f0og', 'nlmKaY1UIlg', 'GiBb9Cpis88', 'WH9QPD4LupQ', '9vm3tjTVXbg', 'PpGfTJEzqgQ', '_6MhdzFtYTE', 'iuRguFAO17Y', 'SIgB-nFIyEs', 'SyRKFi6Gea0', 'TZdEESRbEM4', 'vIiLfRUX4Ws', '1ABAdjGyuPA', 'nERPyXlPGxI', '1Ac9uUkxUAY', 'r55xRPEUS4c', 'WQ7Tnls5wm0', 'snSXIBnmpIA', 'YORGy-S7PIc', 'M-5Vo1OXHZ0', 'E4Sbuh0Q5oM', 'oR86bMKbYEY', 'Sxe5Mz4RbTM', 'aCdjVGWSqjk', '76pD5yVUlnk', 'X', 'ZYXuA1R1g6g', 'iTC15hif-Fg', 'Xk6nwyZo73s', 'I15Sg-gI3TA', 'C_OswWe3jUM', '-lFMttm3bE8', 'ViRcQD6c2zo', 'UhTksTYdZwQ', 'sDaI-3oPml0', 'YlCDPJzHIM8', 'hXiF5Csmgww', 'GK_r--0VkQ0', 'SBevwF1khgc', 'QA1fiBDRizQ', '-6nORik_nYQ', '8DIwype8-Uo', 'g_vLlu_dLRo', 'V3V79GCTmKo', 'wB16s8Ju-mk', '5pWrnSm3rP0', 'gn7D21Ir3i8', 'viBpjY_eGcw', 'hwNKwaLZOtw', 'Vlid3uGOuQ4', 'hrHdxZ08x4I', 'elYK4xDGr6k', 'M1BeZYX50HA', 'eD3uFEEQ2dM', '4JcjCFgfFP0', 'DgKbateEWJ0', 'sgu92qkxnmM', '0KKzwqNxc-0', 'UjYx_INP9EI', 'eUukg-5uwtg', 'X7N53f_uB2E', 'VT5-K_07ASo', 'YDrnzhKhhB8', 'sJ3zsK_j6KE', 'Lwkx-r1gvGI', 'XoL6NYHlZGM', 'VBj7deiaA50', 'Zt8pn5q5dlM', 'HQVFiWN1ue8', 'hZOnk6VbYVg', 'b_IsTLzeHnU', 'VXIcccooJJA', 'NbhkhWUgI7o', 'VBOzSc-drys', 'UEmSqE5KZUY', 'TOlBNxfmxoc', 'X']
 
         function generateLink() {
             const n = parseInt(document.getElementById('n').value);
@@ -370,18 +187,13 @@
             const k = parseInt(document.getElementById('k').value);
             
             if (!n || !m || !k) {
-                alert('모든 값을 입력해주세요!');
-                return;
-            }
-            
-            if (n < 1 || n > 5 || m < 1 || m > 4 || k < 1 || k > 4) {
-                alert('올바른 범위의 값을 입력해주세요!\nn: 1-5, m: 1-4, k: 1-4');
+                alert('모든 값을 선택해주세요!');
                 return;
             }
             
             const index = (n - 1) * 16 + (m - 1) * 4 + k - 1;
             const videoId = videoList[index];
-            const url = videoId === 'X' ? '없' : `https://www.youtube.com/watch?v=${videoId}`;
+            const url = `https://www.youtube.com/watch?v=${videoId}`;
             
             const linkElement = document.getElementById('link');
             linkElement.href = url;
